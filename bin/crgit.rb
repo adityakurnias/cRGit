@@ -15,3 +15,5 @@ unless File.exist?(path_to_command)
 end
 
 exec path_to_command, *args
+
+# https://thoughtbot.com/blog/rebuilding-git-in-ruby
