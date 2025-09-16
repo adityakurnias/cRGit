@@ -3,18 +3,15 @@ require 'fileutils'
 require 'zlib'
 
 module CRGit
-  CRGIT_DIR = "#{Dir.pwd}/.crgit".freeze
-  OBJECTS_DIR = "#{CRGIT_DIR}/objects".freeze
-
   class Object
     def initialize(sha)
       @sha = sha
     end
 
     def write_raw(data)
-      dir = File.join(OBJECTS_DIR, sha[0..1])
+      dir = File.join(CRGit::OBJECTS_DIR, @sha[0..1])
       FileUtils.mkdir_p(dir)
-      path = File.join(dir, sha[2..-1])
+      path = File.join(dir, @sha[2..-1])
       File.open(path, 'wb') { |f| f.write data }
     end
 
@@ -26,7 +23,7 @@ module CRGit
     end
 
     def self.read(sha)
-      path = File.join(OBJECTS_DIR, sha[0..1], sha[2..-1])
+      path = File.join(CRGit::OBJECTS_DIR, sha[0..1], sha[2..-1])
       raw = File.binread(path)
       Zlib::Inflate.inflate(raw)
     end

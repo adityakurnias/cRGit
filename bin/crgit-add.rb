@@ -5,10 +5,7 @@ lib_path = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib_path) unless $LOAD_PATH.include?(lib_path)
 require 'digest'
 require 'zlib'
-require 'fileutils'
-require 'crgit/object'
-require 'crgit/index'
-
+require 'crgit'
 include CRGit
 
 unless Dir.exist?(CRGit::CRGIT_DIR)

@@ -1,8 +1,10 @@
 # lib/crgit/index.rb
 
+require 'fileutils'
+
 module CRGit
   class Index
-    INDEX_PATH = "#{CRGIT_DIR}/index".freeze
+    INDEX_PATH = File.join(CRGIT_DIR, 'index').freeze
 
     def self.ensure_index
       Dir.mkdir(CRGit::CRGIT_DIR) unless Dir.exist?(CRGit::CRGIT_DIR)

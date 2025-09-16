@@ -22,10 +22,9 @@ module CRGit
       build_tree_object('root', tree)
     end
 
-    def self.build_tree_object(name, tree_hash)
-      require 'digest'
+    def self.build_tree_object(_name, tree_hash)
       content = +''
-      tree_hash.each do |k, v|
+      tree_hash.sort.each do |k, v|
         if v.is_a?(Hash)
           child_sha = build_tree_object(k, v)
           content << "tree #{child_sha} #{k}\n"
@@ -33,7 +32,7 @@ module CRGit
           content << "blob #{v} #{k}\n"
         end
       end
-      sha = Digest::SHA1.hexdigest(Time.now.iso8601 + name)
+      sha = Digest::SHA1.hexdigest(content)
       CRGit::Object.new(sha).write_raw(Zlib::Deflate.deflate(content))
       sha
     end

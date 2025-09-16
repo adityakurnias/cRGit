@@ -5,12 +5,7 @@ lib_path = File.expand_path('../lib', __dir__)
 $LOAD_PATH.unshift(lib_path) unless $LOAD_PATH.include?(lib_path)
 require 'digest'
 require 'time'
-require 'crgit/object'
-require 'crgit/index'
-require 'crgit/tree'
-require 'crgit/commit'
-require 'crgit/repo'
-
+require 'crgit'
 include CRGit
 
 repo = Repo.new
