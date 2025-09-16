@@ -8,7 +8,7 @@ require 'crgit/repo'
 
 include CRGit
 
-unless Dir.exist?(CRGit::RGIT_DIR)
+unless Dir.exist?(CRGit::CRGIT_DIR)
   warn 'Not an RGit project'
   exit 1
 end
