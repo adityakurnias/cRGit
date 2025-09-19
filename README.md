@@ -50,6 +50,9 @@ echo "hello world" > hello.txt
 
 # Tambahkan ke indeks
 ./bin/crgit.rb add hello.txt
+
+# Atau semua file di direktori
+./bin/crgit.rb add .
 ```
 
 ### Memeriksa Status
