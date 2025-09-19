@@ -13,21 +13,30 @@ unless Dir.exist?(CRGit::CRGIT_DIR)
   exit 1
 end
 
-path = ARGV.first
-if path.nil?
-  warn 'No path specified'
-  exit 1
+def add_file(path)
+  file_contents = File.binread(path)
+  sha = Digest::SHA1.hexdigest(file_contents)
+  blob = Zlib::Deflate.deflate(file_contents)
+
+  # store compressed blob
+  object_dir = File.join(CRGit::OBJECTS_DIR, sha[0..1])
+  FileUtils.mkdir_p(object_dir)
+  blob_path = File.join(object_dir, sha[2..-1])
+  File.open(blob_path, 'wb') { |f| f.write blob }
+
+  Index.add_entry(sha, path)
+  puts "Added #{path} => #{sha}"
 end
 
-file_contents = File.binread(path)
-sha = Digest::SHA1.hexdigest(file_contents)
-blob = Zlib::Deflate.deflate(file_contents)
-
-# store compressed blob
-object_dir = File.join(CRGit::OBJECTS_DIR, sha[0..1])
-FileUtils.mkdir_p(object_dir)
-blob_path = File.join(object_dir, sha[2..-1])
-File.open(blob_path, 'wb') { |f| f.write blob }
-
-Index.add_entry(sha, path)
-puts "Added #{path} => #{sha}"
+path = ARGV.first
+if path == '.'
+  paths = Dir.glob('**/*').reject do |p|
+    File.directory?(p) || p.start_with?(CRGit::CRGIT_DIR)
+  end
+  paths.each { |p| add_file(p) }
+elsif path.nil?
+  warn 'No path specified'
+  exit 1
+else
+  add_file(path)
+end
