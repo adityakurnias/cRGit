@@ -8,7 +8,7 @@ if command.nil?
   exit 1
 end
 
-path_to_command = File.expand_path("crgit-#{command}", __dir__)
+path_to_command = File.expand_path("crgit-#{command}.rb", __dir__)
 unless File.exist?(path_to_command)
   warn "No such command: #{command}"
   exit 1

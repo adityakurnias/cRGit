@@ -35,7 +35,7 @@ chmod +x bin/*
 Untuk membuat repositori `cRGit` baru di direktori saat ini, jalankan:
 
 ```sh
-./bin/crgit-init.rb
+./bin/crgit.rb init
 ```
 
 Perintah ini akan membuat direktori `.crgit`, tempat `cRGit` menyimpan semua datanya, termasuk objek dan referensi.
@@ -49,7 +49,7 @@ Untuk menyiapkan file (_stage_) untuk _commit_ berikutnya, gunakan perintah `add
 echo "hello world" > hello.txt
 
 # Tambahkan ke indeks
-./bin/crgit-add.rb hello.txt
+./bin/crgit.rb add hello.txt
 ```
 
 ### Memeriksa Status
@@ -57,7 +57,7 @@ echo "hello world" > hello.txt
 Untuk melihat file mana yang sudah di-_stage_ dan apa _commit_ saat ini, gunakan `status`:
 
 ```sh
-./bin/crgit-status.rb
+./bin/crgit.rb status
 ```
 
 ### Melakukan Commit
@@ -65,7 +65,7 @@ Untuk melihat file mana yang sudah di-_stage_ dan apa _commit_ saat ini, gunakan
 Untuk menyimpan perubahan yang sudah di-_stage_ secara permanen, buat sebuah _commit_:
 
 ```sh
-./bin/crgit-commit.rb
+./bin/crgit.rb commit
 ```
 
 Perintah ini akan membuka editor teks default Anda (`$EDITOR`, misal: `vi` atau `nano`) untuk menulis pesan _commit_. Setelah menyimpan dan menutup editor, sebuah objek _commit_ baru akan dibuat.
